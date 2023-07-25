@@ -56,9 +56,9 @@ public class JsonRemoteClaim extends AbstractOIDCProtocolMapper implements OIDCA
         // Username
         property = new ProviderConfigProperty();
         property.setName(REMOTE_PARAMETERS_USERNAME);
-        property.setLabel("Send user name");
+        property.setLabel("Send user identifiers");
         property.setType(ProviderConfigProperty.BOOLEAN_TYPE);
-        property.setHelpText("Send the username as query parameter (param: username).");
+        property.setHelpText("Send the username & Keycloak UUID as query parameter (param: username, uuid).");
         property.setDefaultValue("true");
         configProperties.add(property);
 
@@ -154,6 +154,7 @@ public class JsonRemoteClaim extends AbstractOIDCProtocolMapper implements OIDCA
         // Get username
         if (sendUsername) {
             formattedParameters.put("username", userSession.getLoginUsername());
+            formattedParameters.put("uuid", userSession.getId());
         }
 
         return formattedParameters;
